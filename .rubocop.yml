@@ -1,0 +1,11 @@
+
+AllCops:
+  TargetRubyVersion: 2.5
+
+  Exclude:
+    - vendor/**/*
+    - bin/**/*
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*_spec.rb

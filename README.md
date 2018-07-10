@@ -1,8 +1,6 @@
 # ProcessChain
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/process_chain`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+ProcessChain gives you a simple way to using the Railsway oriented programming pattern. And allows you to write code in a more functional style.
 
 ## Installation
 
@@ -22,7 +20,52 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+
+```ruby
+class UpdateUserProcess
+  include ProcessChain
+
+  def assignee_attributes(attrs)
+    if_success do
+    return_success user: results.user.assigne_attributes(attrs)
+    end
+  end
+
+  def validate_user
+    if_success do
+      if results.user.valid?
+        return_fail errors: results.user.errors, user: results.user
+      else
+        return_success
+      end
+    end
+  end
+
+  def save_user
+    user = results.user
+    if_success do
+      if user.save
+        return_success user: user
+      else
+        return_fail user: results.user
+      end
+    end
+  end
+end
+
+## Controller
+def create
+  process = UpdateUserProcess.new(input: user)
+                             .assignee_attributes(permitted_params)
+                             .validate_user
+                             .save_user
+  if process.success?
+    render status: :ok, json: process.results.user
+  else
+    render status: :bad_request, json: process.results.errors
+  end
+end
+```
 
 ## Development
 

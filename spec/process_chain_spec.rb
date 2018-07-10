@@ -8,12 +8,6 @@ RSpec.describe ProcessChain do
   class TestProcessChain
     include ProcessChain
 
-    def assignee_attributes(attrs)
-      if_success do
-        return_success user: results.user.merge(attrs)
-      end
-    end
-
     def validate_user
       if_success do
         if results.user[:name].nil?

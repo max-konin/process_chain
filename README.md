@@ -1,4 +1,8 @@
 # ProcessChain
+[![Build Status](https://travis-ci.org/max-konin/process_chain.svg?branch=master)](https://travis-ci.org/max-konin/process_chain)
+[![Coverage Status](https://coveralls.io/repos/github/max-konin/process_chain/badge.svg?branch=master)](https://coveralls.io/github/max-konin/process_chain?branch=master)
+[![Inline docs](http://inch-ci.org/github/max-konin/process_chain.svg?branch=master)](http://inch-ci.org/github/max-konin/process_chain)
+
 
 ProcessChain gives you a simple way to using the Railsway oriented programming pattern. And allows you to write code in a more functional style.
 

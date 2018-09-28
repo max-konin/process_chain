@@ -2,8 +2,6 @@
 
 require 'process_chain/version'
 
-require 'hashie'
-
 # Base module for process chains
 module ProcessChain
   # :nodoc:
@@ -25,7 +23,7 @@ module ProcessChain
     def initialize(input: {}, success: true)
       raise ArgumentError, '"input" should be a Hash' unless input.is_a? Hash
       @success = success
-      @results = Hashie::Mash.new input
+      @results = input
     end
 
     # @return [true false]

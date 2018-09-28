@@ -27,14 +27,14 @@ class UpdateUserProcess
 
   def assignee_attributes(attrs)
     if_success do
-    return_success user: results.user.assigne_attributes(attrs)
+    return_success user: results[:user].assigne_attributes(attrs)
     end
   end
 
   def validate_user
     if_success do
       if results.user.valid?
-        return_fail errors: results.user.errors, user: results.user
+        return_fail errors: results[:user].errors, user: results.user
       else
         return_success
       end
@@ -42,12 +42,12 @@ class UpdateUserProcess
   end
 
   def save_user
-    user = results.user
+    user = results[:user]
     if_success do
       if user.save
         return_success user: user
       else
-        return_fail user: results.user
+        return_fail user: user
       end
     end
   end
@@ -60,9 +60,9 @@ def create
                              .validate_user
                              .save_user
   if process.success?
-    render status: :ok, json: process.results.user
+    render status: :ok, json: process.results[:user]
   else
-    render status: :bad_request, json: process.results.errors
+    render status: :bad_request, json: process.results[:errors]
   end
 end
 ```

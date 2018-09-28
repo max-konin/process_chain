@@ -10,8 +10,8 @@ RSpec.describe ProcessChain do
 
     def validate_user
       if_success do
-        if results.user[:name].nil?
-          return_fail errors: { name: 'can not be blank' }, user: results.user
+        if results[:user][:name].nil?
+          return_fail errors: { name: 'can not be blank' }, user: results[:user]
         else
           return_success
         end
@@ -19,13 +19,13 @@ RSpec.describe ProcessChain do
     end
 
     def save_user
-      user = results.user
+      user = results[:user]
       if_success do
-        user.is_saved = true
+        user[:is_saved] = true
         return_success user: user
       end
       if_fail do
-        user.is_saved = false
+        user[:is_saved] = false
         return_fail user: user
       end
     end
@@ -109,14 +109,14 @@ RSpec.describe ProcessChain do
 
       it { is_expected.to be_a TestProcessChain }
       it { is_expected.to be_success }
-      it { expect(subject.results.user[:is_saved]).to be_truthy }
+      it { expect(subject.results[:user][:is_saved]).to be_truthy }
     end
     context 'when user is not valid' do
       let(:user) { {} }
 
       it { is_expected.to be_a TestProcessChain }
       it { is_expected.not_to be_success }
-      it { expect(subject.results.user[:is_saved]).to be_falsey }
+      it { expect(subject.results[:user][:is_saved]).to be_falsey }
     end
   end
 end
